@@ -1,0 +1,6 @@
+
+koncepcja WindowwManager'a, który przechowuje listę otwartych i zarejestrowanych okien (formularzy) i pozwala na zarządzanie nimi
+oraz komunikację między nimi.
+
+Może rejestrować i wyrejestrowywać okna, wywoływać pewne zdarzenia na wszystkich lub wybranych zarejestrowanych komponentach,
+pobierać i/lub przekazywać dane między komponentami.
