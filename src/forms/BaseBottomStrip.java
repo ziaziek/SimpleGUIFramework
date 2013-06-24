@@ -4,7 +4,6 @@
  */
 package forms;
 
-import com.sun.xml.internal.ws.api.ResourceLoader;
 import icons.Icons;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,10 +13,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 /**
  *

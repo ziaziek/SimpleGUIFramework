@@ -4,7 +4,8 @@
  */
 package icons;
 
-import com.sun.xml.internal.ws.api.ResourceLoader;
+
+import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 
 /**
@@ -25,6 +26,6 @@ public class Icons {
     
     
     public static ImageIcon getIcon(String icon){
-        return new ImageIcon(ResourceLoader.class.getResource(icon));
+        return new ImageIcon(ResourceBundle.class.getResource(icon));
     }
 }

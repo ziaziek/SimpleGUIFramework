@@ -46,7 +46,8 @@ public class DefaultWindowManager implements IWindowManager {
         boolean alreadyRegistered = false;
         int i=0;
         while(i<windows.size() && !alreadyRegistered){
-            alreadyRegistered =  window.equals(windows.get(i));     
+            alreadyRegistered =  window.equals(windows.get(i));  
+            i++;
         }
         if(!alreadyRegistered){
             windows.add(window);
@@ -64,6 +65,33 @@ public class DefaultWindowManager implements IWindowManager {
         }
         return null;
         
+    }
+
+    @Override
+    public boolean hasChildren(IWindow window) {
+        if(!windows.isEmpty() && windows.contains(window)){
+                int i=0;
+                while(i<windows.size() && windows.get(i).getCaller()!=null && !windows.get(i).getCaller().equals(window)){
+                    i++;
+                }
+                return i<windows.size();
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public List<IWindow> getWindowChildren(IWindow window) {
+        List<IWindow> children = null;
+        if(!windows.isEmpty() && windows.contains(window)){
+            children = new ArrayList<>();
+            for(IWindow w: windows){
+                if(w.getCaller().equals(window)){
+                    children.add(w);
+                }
+            }
+        }
+        return children;
     }
     
 }

@@ -18,5 +18,5 @@ public interface IWindow {
     
     void requestWindowData(Object data);
     
-    
+    IWindow getCaller();
 }

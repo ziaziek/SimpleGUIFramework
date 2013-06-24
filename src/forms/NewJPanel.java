@@ -4,11 +4,8 @@
  */
 package forms;
 
-import com.sun.xml.internal.ws.api.ResourceLoader;
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Graphics;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**

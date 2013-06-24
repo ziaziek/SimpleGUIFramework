@@ -4,12 +4,10 @@
  */
 package forms;
 
-import com.sun.xml.internal.ws.api.ResourceLoader;
 import images.Images;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,8 +24,16 @@ public class BaseForm extends JFrame implements IWindow{
     IWindowManager wmngr = null;
     JLabel mainLabel;
   JPanel btmStrip;
-  
-  
+  IWindow caller = null;
+
+    public IWindow getCaller() {
+        return caller;
+    }
+
+    public void setCaller(IWindow caller) {
+        this.caller = caller;
+    }
+    
    public BaseForm(IWindowManager mngr){
        setPreferredSize(new Dimension(640, 480));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

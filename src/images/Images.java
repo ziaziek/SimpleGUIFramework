@@ -4,8 +4,7 @@
  */
 package images;
 
-import com.sun.xml.internal.ws.api.ResourceLoader;
-import java.awt.Image;
+import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 
 /**
@@ -21,6 +20,6 @@ public class Images {
     public static final String BlueGradientBackground = "/images/Blue-Gradient-Background.jpg";
     
     public static ImageIcon getImageIcon(String im){
-        return new ImageIcon(ResourceLoader.class.getResource(im));
+        return new ImageIcon(ResourceBundle.class.getResource(im));
     }
 }

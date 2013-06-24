@@ -41,20 +41,12 @@ public class JavaApplication1 {
                 public void actionPerformed(ActionEvent ae) {
                     System.out.println("Action being performed.");
                     if(ae.getActionCommand().equals("YES")){
-                      SwingUtilities.invokeLater(new Runnable(){
-
-                          @Override
-                          public void run() {
-                              JFrame fr = new ErrorDialog("What?");
-                              fr.setTitle("Window X");
-                              fr.setVisible(true);
-                          }
-                      });
+                      FormsCaller.callNewWindow("Window 2", new ErrorDialog("What?"));
                         
                     }                  
                 }
             });
-            f = FormsCaller.callNewWindow("Window 1", f);
+            FormsCaller.callNewWindow("Window 1", f);
         }
     }
 }

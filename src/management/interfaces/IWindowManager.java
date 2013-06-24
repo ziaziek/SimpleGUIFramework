@@ -18,4 +18,8 @@ public interface IWindowManager {
     
     IWindow unRegisterWindow(IWindow window);
     
+    boolean hasChildren(IWindow window);
+    
+    List<IWindow> getWindowChildren(IWindow window);
+    
 }
