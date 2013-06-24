@@ -5,6 +5,9 @@
 package javaapplication1;
 
 import java.awt.Dimension;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -21,23 +24,23 @@ public class FormsCaller {
     }
     
     public static JFrame callNewWindow(final String title, final JFrame f, final int behaviour, final Dimension d){
-        SwingUtilities.invokeLater(new Runnable() { public void run() {
-            Dimension winDim;
-        if(d==null || f.getPreferredSize()==null){
-            winDim = new Dimension(350, 250);
-        } else {
-            winDim = d;
-        }
-             f.setDefaultCloseOperation (behaviour);
-             if(d==null){
-                 
-             }
-             f.setPreferredSize(winDim);
-             f.setTitle(title);
-             f.pack();
-             f.setVisible(true);
-         } });
-        return f;
+            SwingUtilities.invokeLater(new Runnable() { public void run() {
+                Dimension winDim;
+            if(d==null || f.getPreferredSize()==null){
+                winDim = new Dimension(350, 250);
+            } else {
+                winDim = d;
+            }
+                 f.setDefaultCloseOperation (behaviour);
+                 if(d==null){
+                     
+                 }
+                 f.setPreferredSize(winDim);
+                 f.setTitle(title);
+                 f.pack();
+                 f.setVisible(true);
+             } });
+            return f;
     }
     
 }

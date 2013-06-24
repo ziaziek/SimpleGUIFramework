@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import management.interfaces.IWindow;
 import management.interfaces.IWindowManager;
 
@@ -49,6 +51,19 @@ public class DefaultWindowManager implements IWindowManager {
         if(!alreadyRegistered){
             windows.add(window);
         }
+    }
+
+    @Override
+    public IWindow unRegisterWindow(IWindow window) {
+        if(windows.contains(window)){
+            windows.remove(window);
+            if(windows.isEmpty()){
+            m = null;
+        }
+            return window;
+        }
+        return null;
+        
     }
     
 }

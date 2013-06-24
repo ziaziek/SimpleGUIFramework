@@ -65,7 +65,7 @@ public class DialogForm extends BaseForm implements MouseListener{
         public YESButton(){
             super();
             super.setText(txt);
-           
+           super.setActionCommand("YES");
         }
         
         public YESButton(String t){
@@ -80,12 +80,13 @@ public class DialogForm extends BaseForm implements MouseListener{
     JLabel message = null;
     ArrayList<JButton> buttons = new ArrayList<>();
     
+    
     public DialogForm(Dialog dialogType, String message){
         super();
         setPreferredSize(new Dimension(640, 480));
         createFormOf(dialogType);
         addMessage(message);
-        this.setAlwaysOnTop(true);
+        //this.setAlwaysOnTop(true);
     }
     
     protected void addMessage(String message){
@@ -117,22 +118,24 @@ public class DialogForm extends BaseForm implements MouseListener{
        setResizable(false);
        
    }
-/**
- * This action should be overridden. It tells the form what to do when the YES button is hit.
- */
-   protected void YESAction(){
-       
-   }
+   
     @Override
     public void mouseClicked(MouseEvent me) {
         if(me.getSource() instanceof OKButton || me.getSource() instanceof NOButton){
             this.dispose();
-        } else if(me.getSource() instanceof YESButton){
-            //TODO: what to do when YES is clicked ?
-            YESAction();
         }
     }
 
+    protected JButton findFirstButtonOfType(Class<?> buttonClass){
+        int i=0;
+        while(i<buttons.size()){
+            if(buttons.get(i).getClass().equals(buttonClass)){
+                return buttons.get(i);
+            }
+            i++;
+        }
+        return null;
+    }
     @Override
     public void mousePressed(MouseEvent me) {
         

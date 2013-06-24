@@ -15,4 +15,7 @@ public interface IWindowManager {
     List<IWindow> getRegisteredWindows();
     
     void registerWindow(IWindow window);
+    
+    IWindow unRegisterWindow(IWindow window);
+    
 }

@@ -38,7 +38,7 @@ public class BaseForm extends JFrame implements IWindow{
         createBottomStrip();
         this.pack();
        wmngr = mngr;
-       registerAtManager(mngr);
+       mngr.registerWindow(this);
    }
    
     public BaseForm(){
@@ -61,6 +61,15 @@ public class BaseForm extends JFrame implements IWindow{
         return c;
     }
 
+    
+    @Override
+    public void dispose(){
+        if(wmngr!=null){
+            wmngr.unRegisterWindow(this);
+        }
+        super.dispose();
+    }
+    
     @Override
     public void registerAtManager(IWindowManager manager) {
         if(manager!=null){

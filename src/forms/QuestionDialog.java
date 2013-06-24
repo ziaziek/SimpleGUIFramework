@@ -9,12 +9,23 @@ import javax.swing.JPanel;
 import icons.Icons;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 /**
  *
  * @author Przemysław
  */
 public class QuestionDialog extends DialogForm{
  
+    public QuestionDialog(String question, String info, ActionListener yesAction){
+        this(question, info);
+        JButton b = null;
+        if((b = findFirstButtonOfType(YESButton.class))!=null){
+            b.addActionListener(yesAction);
+        }
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
     public QuestionDialog(String question, String info){
         super( Dialog.YES_NO, question);
         addInfo(info);
