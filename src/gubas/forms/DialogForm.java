@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package forms;
+package gubas.forms;
 
-import icons.Icons;
+import gubas.icons.Icons;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

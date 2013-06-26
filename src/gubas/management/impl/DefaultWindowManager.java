@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package management.impl;
+package gubas.management.impl;
 
 import java.util.AbstractSet;
 import java.util.ArrayList;
@@ -12,8 +12,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import management.interfaces.IWindow;
-import management.interfaces.IWindowManager;
+import gubas.management.interfaces.IWindow;
+import gubas.management.interfaces.IWindowManager;
 
 /**
  *

@@ -2,14 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package forms;
+package gubas.forms;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import icons.Icons;
+import gubas.icons.Icons;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 /**
@@ -34,7 +37,11 @@ public class QuestionDialog extends DialogForm{
     @Override
     protected void addMessage(String message){
         JPanel messPan = new JPanel();
-        messPan.add(new JLabel(Icons.getIcon(Icons.QuestionMark48)));
+        try {
+            messPan.add(new JLabel(Icons.getIcon(Icons.QuestionMark48)));
+        } catch (IOException ex) {
+            Logger.getLogger(QuestionDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
         messPan.add(new JLabel(message));
         messPan.setOpaque(false);
         this.add(messPan, BorderLayout.NORTH);

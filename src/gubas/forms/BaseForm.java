@@ -2,18 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package forms;
+package gubas.forms;
 
-import images.Images;
+import gubas.components.BaseBottomStrip;
+import gubas.images.Images;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import management.impl.DefaultWindowManager;
-import management.interfaces.IWindow;
-import management.interfaces.IWindowManager;
+import gubas.management.impl.DefaultWindowManager;
+import gubas.management.interfaces.IWindow;
+import gubas.management.interfaces.IWindowManager;
 
 /**
  *
@@ -60,6 +61,12 @@ public class BaseForm extends JFrame implements IWindow{
         super.add(new BaseBottomStrip(), BorderLayout.SOUTH);
     }
   
+    @Override
+    public Component add(Component c){
+        this.add(c, BorderLayout.CENTER);
+        return c;
+    }
+    
     public Component add(Component c, String position){
         if(mainLabel!=null && c!=null){
            this.mainLabel.add(c, position); 

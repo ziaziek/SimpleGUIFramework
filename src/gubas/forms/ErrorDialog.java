@@ -2,13 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package forms;
+package gubas.forms;
 
-import icons.Icons;
+import gubas.icons.Icons;
 import javax.swing.JLabel;
-import images.Images;
+import gubas.images.Images;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -60,7 +63,11 @@ public class ErrorDialog extends DialogForm {
     @Override
     protected void addMessage(String message){
         JPanel messPan = new JPanel();
-        messPan.add(new JLabel(Icons.getIcon(Icons.ErrorIcon48)), BorderLayout.BEFORE_FIRST_LINE);
+        try {
+            messPan.add(new JLabel(Icons.getIcon(Icons.ErrorIcon48)), BorderLayout.BEFORE_FIRST_LINE);
+        } catch (IOException ex) {
+            Logger.getLogger(ErrorDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
         messPan.add(new JLabel(message));
         this.add(messPan, BorderLayout.NORTH);
     }
