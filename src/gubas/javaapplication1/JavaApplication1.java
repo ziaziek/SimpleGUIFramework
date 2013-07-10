@@ -21,13 +21,17 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.PlotState;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.data.DomainOrder;
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.DatasetGroup;
+import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.XYDataset;
 
 /**
@@ -49,92 +53,23 @@ public class JavaApplication1 {
     }
     
     public static void showChart(BaseForm f){
-        JFreeChart chart = new JFreeChart(new XYPlot(new Seria(), null, null, null));
+        DefaultXYDataset seria = new DefaultXYDataset();
+        seria.addSeries("Seria A", getASeries());
+        JFreeChart chart = new JFreeChart(new XYPlot(seria, getXAxis(), getYAxis(), new StandardXYItemRenderer(StandardXYItemRenderer.LINES)));
         ChartPanel p = new ChartPanel(chart);
         f.add(p);
     }
     
-    public class Seria implements XYDataset {
-
-        int[] x = new int[] {1, 2, 3, 4, 5};
-        int[] y = new int[]{3, 7, 3, 2, 8};
-        @Override
-        public DomainOrder getDomainOrder() {
-            return DomainOrder.ASCENDING;
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public int getItemCount(int i) {
-            return x.length;
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public Number getX(int i, int i1) {
-            if(i==0 && i1<x.length){
-                return x[i1];
-            }
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public double getXValue(int i, int i1) {
-            return (double) getX(i, i1);
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public Number getY(int i, int i1) {
-            if(i==0 && i1<y.length){
-                return y[i1];
-            }
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public double getYValue(int i, int i1) {
-            return (double) getY(i, i1);
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public int getSeriesCount() {
-            return 1;
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public Comparable getSeriesKey(int i) {
-            return 0;
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public int indexOf(Comparable cmprbl) {
-            return 0;
-            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public void addChangeListener(DatasetChangeListener dl) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public void removeChangeListener(DatasetChangeListener dl) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public DatasetGroup getGroup() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        @Override
-        public void setGroup(DatasetGroup dg) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-        
+    private static ValueAxis getYAxis(){
+        return new NumberAxis();
+    }
+    private static ValueAxis getXAxis(){
+        return new NumberAxis();
+    }
+    private static double[][] getASeries(){
+        return new double[][]{
+            {1, 2, 3},
+            {5, 7, 2}
+        };
     }
 }
