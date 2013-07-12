@@ -4,9 +4,11 @@
  */
 package gubas.javaapplication1;
 
+import gubas.components.GubasChart;
 import gubas.components.TableComponent;
 import gubas.forms.*;
 import gubas.icons.Icons;
+import gubas.images.Images;
 import java.awt.BorderLayout;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -23,11 +25,14 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.IntervalMarker;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.PlotState;
+import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.data.DomainOrder;
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.DatasetGroup;
@@ -55,8 +60,13 @@ public class JavaApplication1 {
     public static void showChart(BaseForm f){
         DefaultXYDataset seria = new DefaultXYDataset();
         seria.addSeries("Seria A", getASeries());
-        JFreeChart chart = new JFreeChart(new XYPlot(seria, getXAxis(), getYAxis(), new StandardXYItemRenderer(StandardXYItemRenderer.LINES)));
-        ChartPanel p = new ChartPanel(chart);
+        XYItemRenderer rend = new StandardXYItemRenderer(StandardXYItemRenderer.LINES);
+        rend.setBaseItemLabelsVisible(Boolean.TRUE);
+        JFreeChart chart = new JFreeChart(new XYPlot(seria, getXAxis(), getYAxis(), rend));
+        ChartPanel p = new GubasChart(chart);
+        chart.setBackgroundImage(Images.getImageIcon(Images.RedGradientBackground).getImage());
+        chart.getXYPlot().setBackgroundImage(Images.getImageIcon(Images.GreenGradientBackground).getImage());
+        
         f.add(p);
     }
     
@@ -68,8 +78,8 @@ public class JavaApplication1 {
     }
     private static double[][] getASeries(){
         return new double[][]{
-            {1, 2, 3},
-            {5, 7, 2}
+            {1, 2, 3, 4, 5, 6, 7, 8, 9},
+            {5, 7, 2, 5, 3, 7.5, 8, 4,1}
         };
     }
 }

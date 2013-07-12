@@ -1,0 +1,6 @@
+Charts with JFreeChart look very nice and promising.
+
+TODO: do more tests with JFreeChart with various types of graphs and chart options - legends, axes, etc.
+
+TODO: build a chart control that will have a navigation pane to traverse along the X-axis, zoom in and out data,
+        show details of the point that mouse hovers over.
