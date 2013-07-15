@@ -37,10 +37,17 @@ public class GubasChart extends JPanel{
     
     protected JPanel getNavigation(){
         JPanel naviPan = new JPanel(new BorderLayout());
-        JLabel naviTxt = new JLabel("Navigation");
-        naviPan.add(naviTxt, BorderLayout.NORTH);
-        naviTxt.setVerticalAlignment(SwingConstants.CENTER);
+        JLabel naviTxt = new JLabel("Navigation");     
+        JPanel labPanel = new JPanel(new BorderLayout());
+        naviPan.add(labPanel, BorderLayout.NORTH);
+        JPanel labLeftPanel = new JPanel();
+        
+        
+        naviPan.add(labPanel, BorderLayout.NORTH);
         naviPan.setPreferredSize(new Dimension(50, 50));
+        labLeftPanel.setPreferredSize(new Dimension(250, 1));
+        labPanel.add(labLeftPanel, BorderLayout.WEST);
+        labPanel.add(naviTxt, BorderLayout.CENTER);
         return naviPan;
     }
 
