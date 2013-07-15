@@ -21,12 +21,15 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.labels.XYToolTipGenerator;
 import org.jfree.chart.plot.IntervalMarker;
 import org.jfree.chart.plot.Plot;
+import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.PlotRenderingInfo;
 import org.jfree.chart.plot.PlotState;
 import org.jfree.chart.plot.ValueMarker;
@@ -62,12 +65,20 @@ public class JavaApplication1 {
         seria.addSeries("Seria A", getASeries());
         XYItemRenderer rend = new StandardXYItemRenderer(StandardXYItemRenderer.LINES);
         rend.setBaseItemLabelsVisible(Boolean.TRUE);
-        JFreeChart chart = new JFreeChart(new XYPlot(seria, getXAxis(), getYAxis(), rend));
-        ChartPanel p = new GubasChart(chart);
+        rend.setSeriesToolTipGenerator(0, new XYToolTipGenerator() {
+
+            @Override
+            public String generateToolTip(XYDataset xyd, int i, int i1) {
+                return xyd.getXValue(i, i1) + ", "+ xyd.getYValue(i, i1);
+            }
+        });
+        
+        JFreeChart chart =  new JFreeChart(new XYPlot(seria, getXAxis(), getYAxis(), rend));
+        ChartPanel p = new ChartPanel(chart);
+        GubasChart ch = new GubasChart(p);
         chart.setBackgroundImage(Images.getImageIcon(Images.RedGradientBackground).getImage());
         chart.getXYPlot().setBackgroundImage(Images.getImageIcon(Images.GreenGradientBackground).getImage());
-        
-        f.add(p);
+        f.add(ch);
     }
     
     private static ValueAxis getYAxis(){

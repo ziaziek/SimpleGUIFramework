@@ -4,13 +4,11 @@
  */
 package gubas.components;
 
-import gubas.forms.Dialog;
-import gubas.forms.DialogForm;
-import gubas.javaapplication1.FormsCaller;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.util.EventListener;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Plot;
@@ -19,19 +17,32 @@ import org.jfree.chart.plot.Plot;
  *
  * @author Przemysław
  */
-public class GubasChart extends ChartPanel{
+public class GubasChart extends JPanel{
     
     
     Plot myPlot = null;
+    ChartPanel chart = null;
+
+    public ChartPanel getChart() {
+        return chart;
+    }
     
-    public GubasChart(JFreeChart chart){
-        super(chart);
-        addMouseListener(this);
+    public GubasChart(ChartPanel chart){
+        this.chart = chart;
+        this.setLayout(new BorderLayout());
+        this.add(chart, BorderLayout.CENTER);
+        this.add(getNavigation(), BorderLayout.SOUTH);
     }
  
-    @Override
-    public void mouseClicked(MouseEvent me){
-        super.mouseClicked(me);
-        FormsCaller.callNewWindow(" Position", new DialogForm(Dialog.OK, "Clicked on "+me.getX()+", "+me.getY()));
+    
+    protected JPanel getNavigation(){
+        JPanel naviPan = new JPanel(new BorderLayout());
+        JLabel naviTxt = new JLabel("Navigation");
+        naviPan.add(naviTxt, BorderLayout.NORTH);
+        naviTxt.setVerticalAlignment(SwingConstants.CENTER);
+        naviPan.setPreferredSize(new Dimension(50, 50));
+        return naviPan;
     }
+
+
 }
