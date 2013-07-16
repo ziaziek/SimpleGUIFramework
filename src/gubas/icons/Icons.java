@@ -28,6 +28,10 @@ public class Icons {
     
     public static final String QuestionMark48 = "Question-Mark-Icon.png";
     
+    public static final String MoveLeftButton = "moveLeftButton.png";
+    
+    public static final String MoveRightButton = "moveRightButton.png";
+    
     public static ImageIcon getIcon(final String icon) throws IOException{
         BufferedImage im = ImageIO.read(Icons.class.getResourceAsStream(icon));
         return new ImageIcon(im);
