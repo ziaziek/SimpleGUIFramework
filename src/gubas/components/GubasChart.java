@@ -6,14 +6,14 @@ package gubas.components;
 
 import gubas.icons.Icons;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Plot;
@@ -48,20 +48,23 @@ public class GubasChart extends JPanel{
         labPanel.add(naviTxt);
   
         JPanel buttonsPanel = new JPanel();
-        JButton moveLeft, moveRight;
-        try {
-             moveLeft= new JButton(Icons.getIcon(Icons.MoveLeftButton));
-             moveRight = new JButton(Icons.getIcon(Icons.MoveRightButton));
-        } catch (IOException ex) {
-            Logger.getLogger(GubasChart.class.getName()).log(Level.SEVERE, null, ex);
-            moveLeft = new JButton("Left");
-            moveRight = new JButton("Right");
-        }
+        JButton moveLeft, moveRight, zoomIn, zoomOut;
+        
+        moveLeft = createNaviButton(Icons.MoveLeftIcon, "Left");
+        moveRight = createNaviButton(Icons.MoveRightIcon, "Right");
+        zoomIn = createNaviButton(Icons.PlusIcon32, "Zoom In");
+        zoomOut = createNaviButton(Icons.MinusIcon32, "Zoom Out");
         moveLeft.setPreferredSize(new Dimension(40,40));
         moveRight.setPreferredSize(new Dimension(40,40));
-        buttonsPanel.add(moveLeft);
-        buttonsPanel.add(moveRight);
-        
+        zoomIn.setPreferredSize(new Dimension(40,40));
+        zoomOut.setPreferredSize(new Dimension(40,40));
+        JButton[] buttons = new JButton[]{moveLeft, zoomIn, zoomOut, moveRight};
+        //add the buttons to the panel
+        for(int i=0; i<buttons.length; i++){
+            buttonsPanel.add(buttons[i]);
+        }
+        buttonsPanel.setPreferredSize(new Dimension(50, 60));
+        buttonsPanel.setBackground(Color.WHITE);
         naviPan.add(labPanel, BorderLayout.NORTH);
         naviPan.add(buttonsPanel, BorderLayout.CENTER);
         naviPan.setPreferredSize(new Dimension(50, 70));
@@ -69,4 +72,14 @@ public class GubasChart extends JPanel{
     }
 
 
+    private JButton createNaviButton(String icon, String alternativeString){
+        JButton b ;
+        try {
+            b = new JButton(Icons.getIcon(icon));
+        } catch(IOException ex){
+            Logger.getLogger(GubasChart.class.getName()).log(Level.SEVERE, null, ex);
+            b = new JButton(alternativeString);
+        }
+        return b;
+    }
 }

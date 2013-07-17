@@ -28,9 +28,18 @@ public class Icons {
     
     public static final String QuestionMark48 = "Question-Mark-Icon.png";
     
-    public static final String MoveLeftButton = "moveLeftButton.png";
+    public static final String MoveLeftIcon = "Reverse-Play-icon_32.png";
     
-    public static final String MoveRightButton = "moveRightButton.png";
+    public static final String MoveRightIcon = "Play-icon_32.png";
+    
+    public static final String PlusIcon48 = "Plus-icon_48.png";
+    
+    public static final String MinusIcon48 = "Minus-icon_48.png";
+    
+    public static final String PlusIcon32 = "Plus-icon_32.png";
+    
+    public static final String MinusIcon32 = "Minus-icon_32.png";
+    
     
     public static ImageIcon getIcon(final String icon) throws IOException{
         BufferedImage im = ImageIO.read(Icons.class.getResourceAsStream(icon));
