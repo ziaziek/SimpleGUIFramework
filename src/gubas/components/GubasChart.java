@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.Plot;
@@ -23,19 +25,19 @@ import org.jfree.data.Range;
  *
  * @author Przemysław
  */
-public class GubasChart extends JPanel implements ActionListener{
+public class GubasChart extends JPanel implements ActionListener, ChangeListener{
     
     
     Plot myPlot = null;
     ChartPanel chart = null;
-    double shiftValue = 1; //this value will be editable for the users ina textfield in the UI.
+    int shiftValue = 1; //this value will be editable for the users ina textfield in the UI.
 
 
     
-    protected final String ZOOM_IN_COMMAND = "zoomin";
-    protected final String ZOOM_OUT_COMMAND = "zoomout";
-    protected final String MOVE_LEFT_COMMAND = "moveLeft";
-    protected final String MOVE_RIGHT_COMMAND = "moveRight";
+    public static final String ZOOM_IN_COMMAND = "zoomin";
+    public static final String ZOOM_OUT_COMMAND = "zoomout";
+    public static final String MOVE_LEFT_COMMAND = "moveLeft";
+    public static final String MOVE_RIGHT_COMMAND = "moveRight";
     
     public ChartPanel getChart() {
         return chart;
@@ -78,11 +80,12 @@ public class GubasChart extends JPanel implements ActionListener{
         zoomOut.setActionCommand(ZOOM_OUT_COMMAND);
         moveLeft.setActionCommand(MOVE_LEFT_COMMAND);
         moveRight.setActionCommand(MOVE_RIGHT_COMMAND);
-        JButton[] buttons = new JButton[]{moveLeft, zoomIn, zoomOut, moveRight};
+        JComponent[] components = new JComponent[]{moveLeft, zoomIn, createShiftTextBox(shiftValue, 0, (int)chart.getChart().getXYPlot().getDomainAxis().getRange().getLength()), zoomOut, moveRight};
         //add the buttons to the panel
-        for(int i=0; i<buttons.length; i++){
-            buttonsPanel.add(buttons[i]);
-            buttons[i].addActionListener(this);
+        for(int i=0; i<components.length; i++){
+            buttonsPanel.add(components[i]);
+            if(components[i] instanceof AbstractButton)
+            ((AbstractButton)components[i]).addActionListener(this);
         }
         buttonsPanel.setPreferredSize(new Dimension(50, 60));
         buttonsPanel.setBackground(Color.WHITE);
@@ -93,6 +96,17 @@ public class GubasChart extends JPanel implements ActionListener{
     }
 
 
+    private JPanel createShiftTextBox(int initialValue, int minVal, int maxVal){
+        JPanel retPanel = new JPanel();
+        JLabel l = new JLabel("Shift value:");
+        JSpinner spinner = new JSpinner(new SpinnerNumberModel(initialValue, minVal, maxVal, 1));
+        spinner.addChangeListener(this);
+        retPanel.add(l);
+        retPanel.add(spinner);
+        retPanel.setBackground(Color.white); //this might be set by some renderer
+        spinner.getEditor().setPreferredSize(new Dimension(20,30));
+        return retPanel;
+    }
     private JButton createNaviButton(String icon, String alternativeString){
         JButton b ;
         try {
@@ -126,5 +140,12 @@ public class GubasChart extends JPanel implements ActionListener{
               shiftDomainAxis(p.getChart().getXYPlot().getDomainAxis(), 1, shiftValue);
                break;
        }
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        if(e.getSource() instanceof JSpinner){
+            shiftValue = (int)((JSpinner)e.getSource()).getValue();
+        }
     }
 }
