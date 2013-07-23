@@ -44,6 +44,9 @@ public class BaseChartNavigationPanel extends JPanel{
     public BaseChartNavigationPanel(String naviLabel) {
         this.setLayout(new BorderLayout());
         naviTxt = new JLabel(naviLabel);
+        buttonsPanel = new JPanel();
+        labPanel = new JPanel();
+        createNaviButtons();
         panelComponents = new JComponent[]{moveLeft, zoomIn, zoomOut, moveRight};
     }
     
@@ -59,6 +62,7 @@ public class BaseChartNavigationPanel extends JPanel{
         if (l != null) {
             for (int i = 0; i < panelComponents.length; i++) {
                 if (panelComponents[i] != null) {
+                System.out.println("Not null");
                     buttonsPanel.add(panelComponents[i]);
                     if (panelComponents[i] instanceof AbstractButton) {
                         ((AbstractButton) panelComponents[i]).addActionListener(l);
@@ -68,6 +72,7 @@ public class BaseChartNavigationPanel extends JPanel{
         }
         buttonsPanel.setPreferredSize(new Dimension(50, 60));
         buttonsPanel.setBackground(Color.WHITE);
+        labPanel.add(naviTxt);
         this.add(labPanel, BorderLayout.NORTH);
         this.add(buttonsPanel, BorderLayout.CENTER);
         this.setPreferredSize(new Dimension(50, 70));
@@ -86,6 +91,7 @@ public class BaseChartNavigationPanel extends JPanel{
         zoomOut.setActionCommand(ZOOM_OUT_COMMAND);
         moveLeft.setActionCommand(MOVE_LEFT_COMMAND);
         moveRight.setActionCommand(MOVE_RIGHT_COMMAND);
+        panelComponents = new JComponent[]{moveLeft, zoomIn, zoomOut, moveRight};
     }
     
     protected JButton createNaviButton(String icon, String alternativeString){

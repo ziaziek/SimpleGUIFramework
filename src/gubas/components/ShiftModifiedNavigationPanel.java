@@ -18,12 +18,13 @@ public class ShiftModifiedNavigationPanel extends BaseChartNavigationPanel {
     JPanel shiftPanel;
     ChangeListener shiftListener;
     
-    public ShiftModifiedNavigationPanel(String naviLabel) {
+    public ShiftModifiedNavigationPanel(String naviLabel, String text, int initialValue, int minVal, int maxVal, ChangeListener chl) {
         super(naviLabel);
+        createShiftTextBox(text, initialValue, minVal, maxVal, chl);
         panelComponents = new JComponent[]{moveLeft, zoomIn, shiftPanel, zoomOut, moveRight};
     }
     
-    public void createShiftTextBox(String text, int initialValue, int minVal, int maxVal, ChangeListener chl){
+    protected void createShiftTextBox(String text, int initialValue, int minVal, int maxVal, ChangeListener chl){
         shiftListener=chl;
         shiftPanel = new JPanel();
         JLabel l = new JLabel(text);
@@ -33,5 +34,6 @@ public class ShiftModifiedNavigationPanel extends BaseChartNavigationPanel {
         shiftPanel.add(spinner);
         shiftPanel.setBackground(Color.white); //this might be set by some renderer
         spinner.getEditor().setPreferredSize(new Dimension(20,30));
+        
     }
 }
