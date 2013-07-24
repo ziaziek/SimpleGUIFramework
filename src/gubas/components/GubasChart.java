@@ -42,16 +42,8 @@ public class GubasChart extends JPanel implements ActionListener, ChangeListener
         this.add(chart, BorderLayout.CENTER);
         //This should be done only for charts that display in XY form
         if(chart.getChart().getXYPlot()!=null){
-            ShiftModifiedNavigationPanel navi = new ShiftModifiedNavigationPanel("Navigation", "Shift value:",1, 0, 100, this);
-            navi.setButtonsListener(this);
-            try {
-                navi.buildPanel();
-                this.add(navi, BorderLayout.SOUTH);
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-                Logger.getLogger(GubasChart.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            this.add(NavigationPanelFactory.createShiftModifiedNaviPanel("Navigation", "Shift value", 1, 0, 100, this, this),
+                    BorderLayout.SOUTH);   
         }
         
     }
