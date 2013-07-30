@@ -19,6 +19,14 @@ public class DefaultNavigationPanelActionListener implements ActionListener {
 
     ChartPanel p = null;
     int shiftValue = 1;
+
+    public int getShiftValue() {
+        return shiftValue;
+    }
+
+    public void setShiftValue(int shiftValue) {
+        this.shiftValue = shiftValue;
+    }
     
     public DefaultNavigationPanelActionListener(ChartPanel p) {
         this.p=p;
@@ -49,11 +57,8 @@ public class DefaultNavigationPanelActionListener implements ActionListener {
     }
     
     protected void shiftDomainAxis(ValueAxis vax, int direction, double distance){
-        double d = direction*distance;
+        double d = direction*distance*(int)(p.getChart().getXYPlot().getDomainAxis().getRange().getLength()/10);
         Range r = vax.getRange();
-        if (r instanceof DateRange){
-            //NIE !!! - stworz rozne obiekty ActionListener'ów i pozwól faktorii lub programiście wybrać ten, który powinien być w danym miejscu zastosowany
-        }
         double l = r.getLength();
         int p = vax.getStandardTickUnits().getCeilingTickUnit(1).getMinorTickCount();
         
