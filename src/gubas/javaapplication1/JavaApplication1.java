@@ -56,13 +56,24 @@ public class JavaApplication1 {
 //        TableComponent tc = new TableComponent(new Object[][]{{0,0,0}, {0,0,0}}, new String[]{"A","B", "C"});
 //        tc.setOpaque(false);
 //        f.add(tc);
-        showChart(f);
+        //showChart(f);
+        showCandleChart(f);
         FormsCaller.callNewWindow("Table window", f);
+    }
+    
+    
+    public static void showCandleChart(BaseForm f){
+        JFreeChart chart = ChartFactory.createCandlestickChart("Candlesticks", "Date", "Price", FakeSeries.getOHLCSeriesCollection(), true);
+        ChartPanel p = new ChartPanel(chart);
+        GubasChart ch = new GubasChart(p);
+        chart.setBackgroundImage(Images.getImageIcon(Images.RedGradientBackground).getImage());
+        chart.getXYPlot().setBackgroundImage(Images.getImageIcon(Images.GreenGradientBackground).getImage());
+        f.add(ch);
     }
     
     public static void showChart(BaseForm f){
         DefaultXYDataset seria = new DefaultXYDataset();
-        seria.addSeries("Seria A", getASeries());
+        seria.addSeries("Seria A", FakeSeries.getASeries());
         XYItemRenderer rend = new StandardXYItemRenderer(StandardXYItemRenderer.LINES);
         rend.setBaseItemLabelsVisible(Boolean.TRUE);
         rend.setSeriesToolTipGenerator(0, new XYToolTipGenerator() {
@@ -87,10 +98,5 @@ public class JavaApplication1 {
     private static ValueAxis getXAxis(){
         return new NumberAxis();
     }
-    private static double[][] getASeries(){
-        return new double[][]{
-            {1, 2, 3, 4, 5, 6, 7, 8, 9},
-            {5, 7, 2, 5, 3, 7.5, 8, 4,1}
-        };
-    }
+    
 }

@@ -17,9 +17,11 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.axis.TickUnits;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.Plot;
 import org.jfree.data.Range;
+import org.jfree.data.time.DateRange;
 
 /**
  *
@@ -51,7 +53,15 @@ public class GubasChart extends JPanel implements ActionListener, ChangeListener
 
     protected void shiftDomainAxis(ValueAxis vax, int direction, double distance){
         double d = direction*distance;
+        Range r = vax.getRange();
+        if (r instanceof DateRange){
+            //NIE !!! - stworz rozne obiekty ActionListener'ów i pozwól faktorii lub programiście wybrać ten, który powinien być w danym miejscu zastosowany
+        }
+        double l = r.getLength();
+        int p = vax.getStandardTickUnits().getCeilingTickUnit(1).getMinorTickCount();
+        
         vax.setRange(vax.getRange().getLowerBound()+ d, vax.getRange().getUpperBound()+d);
+        
     }
     
     @Override
