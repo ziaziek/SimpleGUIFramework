@@ -4,6 +4,7 @@
  */
 package gubas.components;
 
+import gubas.components.interfaces.ShiftValueContaining;
 import gubas.icons.Icons;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -27,7 +28,7 @@ import org.jfree.data.time.DateRange;
  *
  * @author Przemysław
  */
-public class GubasChart extends JPanel implements ActionListener, ChangeListener{
+public class GubasChart extends JPanel implements ShiftValueContaining{
     
     
     Plot myPlot = null;
@@ -44,49 +45,20 @@ public class GubasChart extends JPanel implements ActionListener, ChangeListener
         this.add(chart, BorderLayout.CENTER);
         //This should be done only for charts that display in XY form
         if(chart.getChart().getXYPlot()!=null){
-            this.add(NavigationPanelFactory.createShiftModifiedNaviPanel("Navigation", "Shift value", 1, 0, 100, this, this),
+            this.add(NavigationPanelFactory.createShiftModifiedNaviPanel("Navigation", "Shift value", 1, 0, 100, new DefaultNavigationPanelActionListener(this.getChart(), this),
+                    new DefaultShiftNavigationPanelChangeListener(this)),
                     BorderLayout.SOUTH);   
         }
         
     }
-    
 
-    protected void shiftDomainAxis(ValueAxis vax, int direction, double distance){
-        double d = direction*distance;
-        Range r = vax.getRange();
-        if (r instanceof DateRange){
-            //NIE !!! - stworz rozne obiekty ActionListener'ów i pozwól faktorii lub programiście wybrać ten, który powinien być w danym miejscu zastosowany
-        }
-        double l = r.getLength();
-        int p = vax.getStandardTickUnits().getCeilingTickUnit(1).getMinorTickCount();
-        
-        vax.setRange(vax.getRange().getLowerBound()+ d, vax.getRange().getUpperBound()+d);
-        
-    }
-    
     @Override
-    public void actionPerformed(ActionEvent e) {
-        ChartPanel p = this.chart;
-       switch(e.getActionCommand()){
-           case BaseChartNavigationPanel.ZOOM_IN_COMMAND :
-               p.zoomInDomain(p.getX()+ p.getWidth()/2, p.getY()+p.getHeight()/2);
-               break;
-           case BaseChartNavigationPanel.ZOOM_OUT_COMMAND:
-               p.zoomOutDomain(p.getX()+ p.getWidth()/2, p.getY()+p.getHeight()/2);
-               break;
-           case BaseChartNavigationPanel.MOVE_LEFT_COMMAND:
-               shiftDomainAxis(p.getChart().getXYPlot().getDomainAxis(), -1, shiftValue);
-               break;
-           case BaseChartNavigationPanel.MOVE_RIGHT_COMMAND:
-              shiftDomainAxis(p.getChart().getXYPlot().getDomainAxis(), 1, shiftValue);
-               break;
-       }
+    public int getShiftValue() {
+        return shiftValue;
     }
 
     @Override
-    public void stateChanged(ChangeEvent e) {
-        if(e.getSource() instanceof JSpinner){
-            shiftValue = (int)((JSpinner)e.getSource()).getValue();
-        }
+    public void setShiftValue(int sh) {
+        shiftValue = sh;
     }
 }

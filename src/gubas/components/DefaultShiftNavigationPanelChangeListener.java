@@ -4,6 +4,7 @@
  */
 package gubas.components;
 
+import gubas.components.interfaces.ShiftValueContaining;
 import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -14,20 +15,16 @@ import javax.swing.event.ChangeListener;
  */
 public class DefaultShiftNavigationPanelChangeListener implements ChangeListener {
     
-    private int shiftValue = 1;
+    private ShiftValueContaining shiftContainer = null;
 
-    public int getShiftValue() {
-        return shiftValue;
-    }
-
-    public DefaultShiftNavigationPanelChangeListener(int shV){
-        shiftValue = shV;
+    public DefaultShiftNavigationPanelChangeListener(ShiftValueContaining shV){
+        shiftContainer = shV;
     }
     
     @Override
     public void stateChanged(ChangeEvent e) {
         if(e.getSource() instanceof JSpinner){
-            shiftValue = (int)((JSpinner)e.getSource()).getValue();
+            shiftContainer.setShiftValue((int)((JSpinner)e.getSource()).getValue());
         }
     }
     

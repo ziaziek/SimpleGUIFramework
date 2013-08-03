@@ -62,7 +62,6 @@ public class BaseChartNavigationPanel extends JPanel{
         if (l != null) {
             for (int i = 0; i < panelComponents.length; i++) {
                 if (panelComponents[i] != null) {
-                System.out.println("Not null");
                     buttonsPanel.add(panelComponents[i]);
                     if (panelComponents[i] instanceof AbstractButton) {
                         ((AbstractButton) panelComponents[i]).addActionListener(l);
