@@ -36,6 +36,7 @@ import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.DomainOrder;
 import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.DatasetGroup;
@@ -63,8 +64,12 @@ public class JavaApplication1 {
     
     
     public static void showCandleChart(BaseForm f){
-        JFreeChart chart = ChartFactory.createCandlestickChart("Candlesticks", "Date", "Price", FakeSeries.getOHLCSeriesCollection(), true);
+        JFreeChart chart =  ChartFactory.createCandlestickChart("Candlesticks", "Date", "Price", FakeSeries.getOHLCSeriesCollection(), true);
         ChartPanel p = new ChartPanel(chart);
+        DefaultXYDataset seria = new DefaultXYDataset();
+        seria.addSeries("Seria A", FakeSeries.getLineOHLCSeries());
+        chart.getXYPlot().setDataset(1, seria);
+        chart.getXYPlot().setRenderer(1, new XYLineAndShapeRenderer());
         GubasChart ch = new GubasChart(p);
         chart.setBackgroundImage(Images.getImageIcon(Images.RedGradientBackground).getImage());
         chart.getXYPlot().setBackgroundImage(Images.getImageIcon(Images.GreenGradientBackground).getImage());

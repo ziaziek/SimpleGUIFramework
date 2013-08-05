@@ -9,9 +9,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jfree.data.ComparableObjectItem;
 import org.jfree.data.time.Day;
+import org.jfree.data.time.ohlc.OHLCItem;
 import org.jfree.data.time.ohlc.OHLCSeries;
 import org.jfree.data.time.ohlc.OHLCSeriesCollection;
+import org.jfree.data.xy.OHLCDataItem;
 
 /**
  *
@@ -44,5 +47,21 @@ public class FakeSeries {
         seria.add(new Day(df.parse("2001-05-04")), 5.01, 5.55, 4.80, 4.99);
         seria.add(new Day(df.parse("2001-05-05")), 5.25, 5.60, 5.01, 5.55);
         return seria;
+    }
+    
+    protected static double[][] getLineOHLCSeries(){
+        try {
+            OHLCSeries s = getSeries();
+            double[][] ret = new double[2][s.getItemCount()];
+            for(int i=0; i<s.getItemCount(); i++){
+                OHLCItem item = (OHLCItem)s.getDataItem(i);
+                ret[0][i]=s.getPeriod(i).getMiddleMillisecond();
+                ret[1][i]=0.5*(item.getCloseValue()+item.getOpenValue());
+            }
+            return ret;
+        } catch (ParseException ex) {
+            Logger.getLogger(FakeSeries.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }
