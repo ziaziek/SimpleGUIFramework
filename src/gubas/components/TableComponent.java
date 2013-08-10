@@ -35,6 +35,16 @@ public class TableComponent extends JPanel {
     MouseMotionListener mmListener = null;
     
     TableRowSorter rowSorter = null;
+    
+    TableComponentStylist tableStylist = null;
+
+    public TableComponentStylist getTableStylist() {
+        return tableStylist;
+    }
+
+    public void setTableStylist(TableComponentStylist tableStylist) {
+        this.tableStylist = tableStylist;
+    }
 
     public MouseMotionListener getMmListener() {
         return mmListener;
@@ -67,8 +77,11 @@ public class TableComponent extends JPanel {
         return header;
     }
     
-    public TableComponent(){
+    public TableComponent() {
         super();
+        if (tableStylist == null) {
+            tableStylist = new TableComponentStylist(this.table);
+        }
     }
     
     public TableComponent(Object[][] data, String[] colNames){
@@ -114,6 +127,7 @@ public class TableComponent extends JPanel {
             mmListener = new DefaultTableComponentMouseListener(this);
             table.addMouseMotionListener(mmListener);
             this.addMouseMotionListener(mmListener);
+            
         }
     }
     
@@ -135,41 +149,32 @@ public class TableComponent extends JPanel {
     
     public class AlternateRowsRenderer extends DefaultTableCellRenderer {
         
-        protected Color alternateColor = Color.YELLOW;
-        
         public AlternateRowsRenderer(){ super();
             setOpaque(true);
         }
-
-        public AlternateRowsRenderer(Color c){
-            this();
-            alternateColor = c;
-        }
+        
         @Override
         public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int row, int column) {
-            if(row==itsRow){
-               setBackground(Color.LIGHT_GRAY);
-               setForeground(Color.white);
-           } else {
-              if(row%2!=0){
-               setBackground(alternateColor);
-           } else
-           {
-               setBackground(Color.white);
-           }
-           
-           setForeground(Color.gray);  
+            if (row == itsRow) {
+                setBackground(tableStylist.getHoverOverBackgroundColor());
+                setForeground(tableStylist.getHoverOverForegroundColor());
+            } else {
+                if (row % 2 != 0) {
+                    setBackground(tableStylist.getOddRowBackgroundColor());
+                    setForeground(tableStylist.getOddRowForegroundColor());
+                } else {
+                    setBackground(tableStylist.getEvenRowBackgroundColor());
+                    setForeground(tableStylist.getEvenRowForegroundColor());
+                }
             }
-           
-           this.setText(o.toString());
+            this.setText(o.toString());
             return this;
         }
-        
     }
     
     protected class GradientHeader extends JTableHeader{
-        public Color startCol = new Color(0,55,255,100);
-        public Color endColor = new Color(255,255,255,120);
+        public Color startCol = tableStylist.getTableHeaderGradientFromColor();
+        public Color endColor = tableStylist.getTableHeaderGradientToColor();
         private final float SIDE = 20;
         
         private GradientPaint gPaint = new GradientPaint(0,0,startCol, 0, SIDE, endColor, true);
@@ -177,7 +182,7 @@ public class TableComponent extends JPanel {
         @Override
         protected void paintComponent(Graphics g){
             super.paintComponent(g);
-            this.setForeground(Color.blue);
+            this.setForeground(tableStylist.getTableHeaderGradientForegroundColor());
             this.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
             Graphics2D g2 = (Graphics2D)g;
             g2.setPaint(gPaint);

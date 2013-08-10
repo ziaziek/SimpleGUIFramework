@@ -8,6 +8,7 @@ import gubas.components.GubasChart;
 import gubas.components.TableComponent;
 import gubas.forms.*;
 import gubas.images.Images;
+import java.awt.Color;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
