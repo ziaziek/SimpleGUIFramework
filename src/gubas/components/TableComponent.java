@@ -5,9 +5,7 @@
 package gubas.components;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -16,13 +14,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author Przemek
  */
-public class TableComponent extends JPanel implements MouseMotionListener {
+public class TableComponent extends JPanel {
     
     JScrollPane scroll;
     
@@ -34,6 +32,28 @@ public class TableComponent extends JPanel implements MouseMotionListener {
 
     TableCellRenderer cellRenderer = null;
 
+    MouseMotionListener mmListener = null;
+    
+    TableRowSorter rowSorter = null;
+
+    public MouseMotionListener getMmListener() {
+        return mmListener;
+    }
+
+    public void setMmListener(MouseMotionListener mmListener) {
+        this.mmListener = mmListener;
+    }
+
+    public TableRowSorter getRowSorter() {
+        return rowSorter;
+    }
+
+    public void setRowSorter(TableRowSorter rowSorter) {
+        this.rowSorter = rowSorter;
+    }
+    
+    int itsRow = -1;
+    
     public TableCellRenderer getCellRenderer() {
         return cellRenderer;
     }
@@ -87,10 +107,13 @@ public class TableComponent extends JPanel implements MouseMotionListener {
             if (table.getModel()==null && tableModel!=null)
                     table.setModel(tableModel);
             table.setDefaultRenderer(Object.class, new AlternateRowsRenderer());
+            table.setRowSorter(new TableRowSorter(table.getModel()));
             scroll = new JScrollPane(table);
             this.removeAll();
             add(scroll);
-            table.addMouseMotionListener(this);
+            mmListener = new DefaultTableComponentMouseListener(this);
+            table.addMouseMotionListener(mmListener);
+            this.addMouseMotionListener(mmListener);
         }
     }
     
@@ -109,18 +132,6 @@ public class TableComponent extends JPanel implements MouseMotionListener {
     public JTable getTable() {
         return table;
     }
-
-    @Override
-    public void mouseDragged(MouseEvent me) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent me) {
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     
     public class AlternateRowsRenderer extends DefaultTableCellRenderer {
         
@@ -136,13 +147,20 @@ public class TableComponent extends JPanel implements MouseMotionListener {
         }
         @Override
         public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int row, int column) {
-           if(row%2!=0){
+            if(row==itsRow){
+               setBackground(Color.LIGHT_GRAY);
+               setForeground(Color.white);
+           } else {
+              if(row%2!=0){
                setBackground(alternateColor);
            } else
            {
                setBackground(Color.white);
            }
-           setForeground(Color.gray);
+           
+           setForeground(Color.gray);  
+            }
+           
            this.setText(o.toString());
             return this;
         }
@@ -154,7 +172,7 @@ public class TableComponent extends JPanel implements MouseMotionListener {
         public Color endColor = new Color(255,255,255,120);
         private final float SIDE = 20;
         
-        private GradientPaint gPaint = new GradientPaint(0,0,startCol, 0, 20, endColor, true);
+        private GradientPaint gPaint = new GradientPaint(0,0,startCol, 0, SIDE, endColor, true);
         
         @Override
         protected void paintComponent(Graphics g){
@@ -167,4 +185,7 @@ public class TableComponent extends JPanel implements MouseMotionListener {
         }
         
     }
+    
+
+    
 }
