@@ -5,28 +5,44 @@
 package gubas.components;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
 /**
  *
  * @author Przemek
  */
-public class TableComponent extends JPanel {
+public class TableComponent extends JPanel implements MouseMotionListener {
     
     JScrollPane scroll;
     
     JTable table;
     
-    AbstractTableModel tableModel;
+    DefaultTableModel tableModel = null;
 
     GradientHeader header;
 
+    TableCellRenderer cellRenderer = null;
+
+    public TableCellRenderer getCellRenderer() {
+        return cellRenderer;
+    }
+
+    public void setCellRenderer(TableCellRenderer cellRenderer) {
+        this.cellRenderer = cellRenderer;
+        table.setDefaultRenderer(Color.class , cellRenderer);
+    }
+    
     public GradientHeader getHeader() {
         return header;
     }
@@ -36,12 +52,12 @@ public class TableComponent extends JPanel {
     }
     
     public TableComponent(Object[][] data, String[] colNames){
-        super();
+        this();
         populateTable(data, colNames);
     }
     
     public TableComponent(DefaultTableModel model){
-        super();
+        this();
         populateTable(model);
     }
     
@@ -68,9 +84,13 @@ public class TableComponent extends JPanel {
     protected void prepare(){
         if(table!=null){
             createHeader();
+            if (table.getModel()==null && tableModel!=null)
+                    table.setModel(tableModel);
+            table.setDefaultRenderer(Object.class, new AlternateRowsRenderer());
             scroll = new JScrollPane(table);
             this.removeAll();
             add(scroll);
+            table.addMouseMotionListener(this);
         }
     }
     
@@ -78,8 +98,8 @@ public class TableComponent extends JPanel {
         return tableModel;
     }
 
-    public void setTableModel(AbstractTableModel tableModel) {
-        this.tableModel = tableModel;
+    public void setTableModel(DefaultTableModel tableModel) {
+        this.tableModel =  tableModel;
     }
     
     public JScrollPane getScroll() {
@@ -88,6 +108,45 @@ public class TableComponent extends JPanel {
 
     public JTable getTable() {
         return table;
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent me) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent me) {
+        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    public class AlternateRowsRenderer extends DefaultTableCellRenderer {
+        
+        protected Color alternateColor = Color.YELLOW;
+        
+        public AlternateRowsRenderer(){ super();
+            setOpaque(true);
+        }
+
+        public AlternateRowsRenderer(Color c){
+            this();
+            alternateColor = c;
+        }
+        @Override
+        public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int row, int column) {
+           if(row%2!=0){
+               setBackground(alternateColor);
+           } else
+           {
+               setBackground(Color.white);
+           }
+           setForeground(Color.gray);
+           this.setText(o.toString());
+            return this;
+        }
+        
     }
     
     protected class GradientHeader extends JTableHeader{

@@ -18,9 +18,13 @@ import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -54,11 +58,12 @@ public class JavaApplication1 {
      */
     public static void main(String[] args) {
         DataForm f = new DataForm();
-//        TableComponent tc = new TableComponent(new Object[][]{{0,0,0}, {0,0,0}}, new String[]{"A","B", "C"});
-//        tc.setOpaque(false);
-//        f.add(tc);
+ 
+        TableComponent tc = new TableComponent(new Object[][]{{0,0,0}, {0,0,0}}, new String[]{"A","B", "C"});
+        tc.setOpaque(false);
+        f.add(tc);
         //showChart(f);
-        showCandleChart(f);
+        //showCandleChart(f);
         FormsCaller.callNewWindow("Table window", f);
     }
     
