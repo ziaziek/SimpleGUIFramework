@@ -8,7 +8,9 @@ import gubas.components.GubasChart;
 import gubas.components.TableComponent;
 import gubas.forms.*;
 import gubas.images.Images;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -37,6 +39,7 @@ public class JavaApplication1 {
         TableComponent tc = new TableComponent(new Object[][]{{5,1,0}, {0,12,0}, {1,0,0}}, new String[]{"A","B", "C"});
         tc.setOpaque(false);
         f.add(tc);
+        tc.setSize(new Dimension(800, 100));
         //showChart(f);
         //showCandleChart(f);
         FormsCaller.callNewWindow("Table window", f);

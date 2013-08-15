@@ -77,11 +77,18 @@ public class TableComponent extends JPanel {
         return header;
     }
     
+    @Override
+    public void setSize(Dimension d){
+        this.setPreferredSize(d);
+        this.table.setPreferredSize(d);
+    }
+    
     public TableComponent() {
         super();
         if (tableStylist == null) {
             tableStylist = new TableComponentStylist(this.table);
         }
+        setLayout(new BorderLayout());
     }
     
     public TableComponent(Object[][] data, String[] colNames){
@@ -119,6 +126,7 @@ public class TableComponent extends JPanel {
             createHeader();
             if (table.getModel()==null && tableModel!=null)
                     table.setModel(tableModel);
+            table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             table.setDefaultRenderer(Object.class, new AlternateRowsRenderer());
             table.setRowSorter(new TableRowSorter(table.getModel()));
             scroll = new JScrollPane(table);
