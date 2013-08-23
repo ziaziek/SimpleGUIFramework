@@ -36,7 +36,7 @@ public class JavaApplication1 {
     public static void main(String[] args) {
         DataForm f = new DataForm();
  
-        TableComponent tc = new TableComponent(new Object[][]{{5,1,0}, {0,12,0}, {1,0,0}}, new String[]{"A","B", "C"});
+        TableComponent tc = new TableComponent(FakeSeries.getRandomDataArray(223, 3), new String[]{"A1","BX", "CE"});
         tc.setOpaque(false);
         f.add(tc);
         tc.setSize(new Dimension(800, 100));

@@ -80,7 +80,7 @@ public class TableComponent extends JPanel {
     @Override
     public void setSize(Dimension d){
         this.setPreferredSize(d);
-        this.table.setPreferredSize(d);
+        this.table.setFillsViewportHeight(true);
     }
     
     public TableComponent() {

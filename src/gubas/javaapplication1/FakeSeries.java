@@ -7,6 +7,7 @@ package gubas.javaapplication1;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jfree.data.ComparableObjectItem;
@@ -27,6 +28,17 @@ public class FakeSeries {
             {1, 2, 3, 4, 5, 6, 7, 8, 9},
             {5, 7, 2, 5, 3, 7.5, 8, 4,1}
         };
+    }
+    
+    public static Object[][] getRandomDataArray(int numberOfRows, int numberOfColumns){
+        Random r = new Random();
+        Object[][] ret = new Object[numberOfRows][numberOfColumns];
+        for(int i=0; i<numberOfRows; i++){
+            for(int j=0; j<numberOfColumns; j++){
+                ret[i][j] = r.nextDouble();
+            }
+        }
+       return ret; 
     }
     
     public static OHLCSeriesCollection getOHLCSeriesCollection(){
