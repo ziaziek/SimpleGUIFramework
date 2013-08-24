@@ -103,6 +103,7 @@ public class TableComponent extends JPanel {
     
     public void populateTable(Object[][] data, String[] columnNames){
         table = new JTable(data, columnNames);
+        table.getModel().addTableModelListener(table);
         prepare();
         
     }
