@@ -5,10 +5,18 @@
 package gubas.components;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -37,6 +45,8 @@ public class TableComponent extends JPanel {
     TableRowSorter rowSorter = null;
     
     TableComponentStylist tableStylist = null;
+    
+    Timer t = null;
 
     public TableComponentStylist getTableStylist() {
         return tableStylist;
@@ -63,6 +73,8 @@ public class TableComponent extends JPanel {
     }
     
     int itsRow = -1;
+    
+    int curAlfa = 0;
     
     public TableCellRenderer getCellRenderer() {
         return cellRenderer;
@@ -136,7 +148,9 @@ public class TableComponent extends JPanel {
             mmListener = new DefaultTableComponentMouseListener(this);
             table.addMouseMotionListener(mmListener);
             this.addMouseMotionListener(mmListener);
-            
+            if(mmListener instanceof MouseListener){
+               table.addMouseListener((MouseListener) mmListener); 
+            }
         }
     }
     
@@ -156,6 +170,32 @@ public class TableComponent extends JPanel {
         return table;
     }
     
+    
+    public void animateRow(final int rowNumber) {
+        curAlfa = 0;
+        if (t == null) {
+            t = new Timer(2, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (curAlfa < 255) {
+                        table.repaint();
+                        curAlfa += 15;
+                    } else {
+                        //curAlfa = 0;
+                    }
+                }
+            });
+        }
+        if (t != null && t.isRunning()) {
+            t.setRepeats(false);
+            t.stop();
+
+        }
+
+        t.setRepeats(true);
+        t.start();
+    }
+
     public class AlternateRowsRenderer extends DefaultTableCellRenderer {
         
         public AlternateRowsRenderer(){ super();
@@ -163,9 +203,15 @@ public class TableComponent extends JPanel {
         }
         
         @Override
-        public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int row, int column) {
-            if (row == itsRow) {
-                setBackground(tableStylist.getHoverOverBackgroundColor());
+        public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, final int row, int column) {
+               // setForeground(tableStylist.getHoverOverForegroundColor());
+                //here we have to introduce threading for fading in and out
+            if(row==itsRow){
+                Color lHovCol = tableStylist.getHoverOverBackgroundColor();
+                setBackground(new Color(lHovCol.getRed(),
+                        lHovCol.getGreen(),
+                        lHovCol.getBlue(),
+                        curAlfa));
                 setForeground(tableStylist.getHoverOverForegroundColor());
             } else {
                 if (row % 2 != 0) {
@@ -176,9 +222,11 @@ public class TableComponent extends JPanel {
                     setForeground(tableStylist.getEvenRowForegroundColor());
                 }
             }
+                
             this.setText(o.toString());
             return this;
         }
+        
     }
     
     protected class GradientHeader extends JTableHeader{

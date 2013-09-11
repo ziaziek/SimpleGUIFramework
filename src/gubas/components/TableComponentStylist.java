@@ -77,15 +77,15 @@ public class TableComponentStylist {
         this.tableHeaderGradientToColor = tableHeaderGradientToColor;
     }
     
-    protected Color hoverOverBackgroundColor = Color.lightGray;
+    protected Color hoverOverBackgroundColor = new Color(100,100,200,255);
     
     protected Color hoverOverForegroundColor = Color.white;
     
-    protected Color oddRowBackgroundColor = Color.yellow;
+    protected Color oddRowBackgroundColor = new Color(180, 245, 255, 255);
     
     protected Color oddRowForegroundColor = Color.gray;
     
-    protected Color evenRowBackgroundColor = Color.white;
+    protected Color evenRowBackgroundColor = new Color(240, 252, 255, 255);
     
     protected Color evenRowForegroundColor = Color.gray;
     
