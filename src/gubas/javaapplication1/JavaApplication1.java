@@ -50,9 +50,11 @@ public class JavaApplication1 {
         tc.addTab("BBB", p2);
         f.add(tc);
         tc.setSize(new Dimension(800, 100));
+        
         //showChart(f);
         //showCandleChart(f);
         FormsCaller.callNewWindow("Table window", f);
+        tc.setActiveTab(0);
     }
     
     
