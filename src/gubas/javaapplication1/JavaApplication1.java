@@ -5,12 +5,15 @@
 package gubas.javaapplication1;
 
 import gubas.components.GubasChart;
+import gubas.components.TabbedPanelComponent;
 import gubas.components.TableComponent;
 import gubas.forms.*;
 import gubas.images.Images;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -36,8 +39,15 @@ public class JavaApplication1 {
     public static void main(String[] args) {
         DataForm f = new DataForm();
  
-        TableComponent tc = new TableComponent(FakeSeries.getRandomDataArray(223, 3), new String[]{"A1","BX", "CE"});
-        tc.setOpaque(false);
+        TabbedPanelComponent tc = new TabbedPanelComponent();
+        JPanel p1 = new JPanel();
+        p1.setPreferredSize(new Dimension(100,100));
+        p1.setBackground(Color.yellow);
+        p1.add(new JLabel("Fuck"));
+        JPanel p2 = new JPanel();
+        p2.setBackground(Color.green);
+        tc.addTab("AAA", p1);
+        tc.addTab("BBB", p2);
         f.add(tc);
         tc.setSize(new Dimension(800, 100));
         //showChart(f);
