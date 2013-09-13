@@ -4,7 +4,7 @@
  */
 package gubas.components.interfaces;
 
-import javax.swing.JButton;
+import java.awt.Component;
 
 /**
  *
@@ -12,6 +12,6 @@ import javax.swing.JButton;
  */
 public interface TabbedPanelListeners {
     
-    void buttonClicked(JButton b);
+    void buttonClicked(Component b);
     
 }

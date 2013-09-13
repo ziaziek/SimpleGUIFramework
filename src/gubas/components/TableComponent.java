@@ -4,6 +4,8 @@
  */
 package gubas.components;
 
+import gubas.management.impl.ComponentAnimationManager;
+import gubas.management.interfaces.AnimationManagable;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +30,7 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Przemek
  */
-public class TableComponent extends JPanel {
+public class TableComponent extends JPanel implements AnimationManagable {
     
     JScrollPane scroll;
     
@@ -46,7 +48,7 @@ public class TableComponent extends JPanel {
     
     TableComponentStylist tableStylist = null;
     
-    Timer t = null;
+    ComponentAnimationManager animMan = null;
 
     public TableComponentStylist getTableStylist() {
         return tableStylist;
@@ -151,6 +153,7 @@ public class TableComponent extends JPanel {
             if(mmListener instanceof MouseListener){
                table.addMouseListener((MouseListener) mmListener); 
             }
+            animMan = new ComponentAnimationManager(this);
         }
     }
     
@@ -172,29 +175,19 @@ public class TableComponent extends JPanel {
     
     
     public void animateRow(final int rowNumber) {
-        curAlfa = 0;
-        if (t == null) {
-            t = new Timer(2, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (curAlfa < 255) {
-                        table.repaint();
-                        curAlfa += 15;
-                    } else {
-                        //curAlfa = 0;
-                    }
-                }
-            });
-        }
-        if (t != null && t.isRunning()) {
-            t.setRepeats(false);
-            t.stop();
-
-        }
-
-        t.setRepeats(true);
-        t.start();
+        animMan.animate();
     }
+
+    @Override
+    public int getCurrentAlpha() {
+        return curAlfa;
+    }
+
+    @Override
+    public void setCurrentAlpha(int a) {
+        curAlfa = a;
+    }
+
 
     public class AlternateRowsRenderer extends DefaultTableCellRenderer {
         
