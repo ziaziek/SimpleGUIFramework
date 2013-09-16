@@ -122,10 +122,15 @@ public class DialogForm extends BaseForm implements MouseListener{
     @Override
     public void mouseClicked(MouseEvent me) {
         if(me.getSource() instanceof OKButton || me.getSource() instanceof NOButton){
+            passData();
             this.dispose();
         }
     }
 
+    protected void passData(){
+        
+    }
+    
     protected JButton findFirstButtonOfType(Class<?> buttonClass){
         int i=0;
         while(i<buttons.size()){
