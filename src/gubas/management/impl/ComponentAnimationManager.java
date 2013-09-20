@@ -5,7 +5,6 @@
 package gubas.management.impl;
 
 import gubas.management.interfaces.AnimationManagable;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;

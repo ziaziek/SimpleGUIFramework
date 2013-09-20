@@ -9,8 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.axis.ValueAxis;
-import org.jfree.data.Range;
-import org.jfree.data.time.DateRange;
 
 /**
  *

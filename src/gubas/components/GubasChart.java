@@ -5,24 +5,10 @@
 package gubas.components;
 
 import gubas.components.interfaces.ShiftValueContaining;
-import gubas.icons.Icons;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.axis.TickUnits;
-import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.Plot;
-import org.jfree.data.Range;
-import org.jfree.data.time.DateRange;
 
 /**
  *

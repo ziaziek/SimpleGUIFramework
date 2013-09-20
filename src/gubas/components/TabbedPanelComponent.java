@@ -9,12 +9,8 @@ import gubas.management.impl.ComponentAnimationManager;
 import gubas.management.interfaces.AnimationManagable;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -23,8 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -39,7 +33,7 @@ public class TabbedPanelComponent extends JPanel implements AnimationManagable {
     
     Map<JPanel, JPanel> componentsMap = new HashMap<>();
     JPanel buttonsPanel = new JPanel();
-    JLayeredPane centralPanel = new JLayeredPane();
+    JPanel centralPanel = new JPanel();
     JPanel spacer = new JPanel();
     List<TabbedPanelListeners> myListeners = new ArrayList<>();
     ComponentAnimationManager cman = null;
@@ -196,11 +190,12 @@ public class TabbedPanelComponent extends JPanel implements AnimationManagable {
      */
     protected void setSelectedButton(JPanel b, Boolean active){
         if(active){
-            centralPanel.setLayer(componentsMap.get(b), 0);
+            centralPanel.removeAll();
             animatedButton = b;
             b.setBorder(BorderUIResource.getLoweredBevelBorderUIResource());
             b.setForeground(activeButtonForegroundColor);
            cman.animate();
+           centralPanel.add(componentsMap.get(b));
         } else {
             b.setBackground(inactiveButtonColor);
             b.setBorder(BorderUIResource.getRaisedBevelBorderUIResource());
