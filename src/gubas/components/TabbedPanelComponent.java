@@ -9,6 +9,7 @@ import gubas.management.impl.ComponentAnimationManager;
 import gubas.management.interfaces.AnimationManagable;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -89,6 +90,7 @@ public class TabbedPanelComponent extends JPanel implements AnimationManagable {
     
     public TabbedPanelComponent(){
         setLayout(new BorderLayout());
+        setOpaque(true);
         buttonsPanel.setPreferredSize(new Dimension(80, 35));
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.X_AXIS));
         centralPanel.setPreferredSize(new Dimension(100, 100));
@@ -116,7 +118,6 @@ public class TabbedPanelComponent extends JPanel implements AnimationManagable {
         buttonsPanel.add(b);
         buttonsPanel.add(spacer);
         centralPanel.add(c);
-        numOfLayers++;
         b.addMouseListener(new MouseListener(){
 
             @Override
@@ -189,18 +190,22 @@ public class TabbedPanelComponent extends JPanel implements AnimationManagable {
      * @remark Set the styles - now preliminary tests only
      */
     protected void setSelectedButton(JPanel b, Boolean active){
-        if(active){
+        
+        if(active){ 
             centralPanel.removeAll();
             animatedButton = b;
             b.setBorder(BorderUIResource.getLoweredBevelBorderUIResource());
-            b.setForeground(activeButtonForegroundColor);
-           cman.animate();
-           centralPanel.add(componentsMap.get(b));
+            b.setForeground(activeButtonForegroundColor); 
+            b.setBackground(activeButtonColor);
+            centralPanel.add(componentsMap.get(b));
+            
         } else {
             b.setBackground(inactiveButtonColor);
             b.setBorder(BorderUIResource.getRaisedBevelBorderUIResource());
             b.setForeground(inactiveForegroundColor);
         }
+        centralPanel.repaint();
+            repaint(); 
     }
     
     protected void calculateElementsPositions(){
@@ -209,18 +214,15 @@ public class TabbedPanelComponent extends JPanel implements AnimationManagable {
            if(c.getValue() instanceof JPanel){
               ((JPanel)c.getValue()).setBounds(0,0, centralPanel.getWidth(), centralPanel.getHeight()); 
            } 
-       }
+    }
+        repaint();
     }
 
     
     @Override
     public void paint(Graphics g){
-        if(animatedButton!=null){
-            animatedButton.setBackground(new Color(activeButtonColor.getRed(),
-                    activeButtonColor.getGreen(), activeButtonColor.getBlue(), getCurrentAlpha()));
-        }
        calculateElementsPositions();
-       super.paint(g);   
+        super.paint(g);  
     }
 
     @Override
@@ -231,5 +233,13 @@ public class TabbedPanelComponent extends JPanel implements AnimationManagable {
     @Override
     public void setCurrentAlpha(int a) {
         cAlfa = a;
+    }
+
+    @Override
+    public void repaintAnimRegion() {
+        if(animatedButton!=null){
+            animatedButton.setBackground(new Color(activeButtonColor.getRed(),
+                    activeButtonColor.getGreen(), activeButtonColor.getBlue(), getCurrentAlpha()));
+        }
     }
 }

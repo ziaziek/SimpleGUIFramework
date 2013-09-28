@@ -14,5 +14,5 @@ public interface AnimationManagable {
     
     void setCurrentAlpha(int a);
     
-    void repaint();
+    void repaintAnimRegion();
 }

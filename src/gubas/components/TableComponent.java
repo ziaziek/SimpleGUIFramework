@@ -181,6 +181,11 @@ public class TableComponent extends JPanel implements AnimationManagable {
         curAlfa = a;
     }
 
+    @Override
+    public void repaintAnimRegion() {
+        repaint();
+    }
+
 
     public class AlternateRowsRenderer extends DefaultTableCellRenderer {
         
@@ -208,8 +213,10 @@ public class TableComponent extends JPanel implements AnimationManagable {
                     setForeground(tableStylist.getEvenRowForegroundColor());
                 }
             }
-                
-            this.setText(o.toString());
+            if(o!=null){
+              this.setText(o.toString());  
+            }    
+            
             return this;
         }
         

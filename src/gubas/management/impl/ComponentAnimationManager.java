@@ -19,7 +19,7 @@ public class ComponentAnimationManager {
     
     AnimationManagable animComp = null;
     
-    Integer timerInterval = 2;
+    Integer timerInterval = 20;
     
     public ComponentAnimationManager(AnimationManagable aC){
         animComp = aC;
@@ -29,7 +29,7 @@ public class ComponentAnimationManager {
             public void actionPerformed(ActionEvent ae) {
                 
                 if (animComp.getCurrentAlpha() < 255) {
-                        animComp.repaint();
+                        animComp.repaintAnimRegion();
                         animComp.setCurrentAlpha(animComp.getCurrentAlpha()+15);
                     } else {
                         //curAlfa = 0;
