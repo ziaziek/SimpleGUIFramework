@@ -20,7 +20,7 @@ public class FormsCaller {
     
     
     public  static void callNewWindow(final String title, JFrame window){
-         callNewWindow(title,window,  JFrame.EXIT_ON_CLOSE, window.getPreferredSize());
+         callNewWindow(title,window,  JFrame.DISPOSE_ON_CLOSE, window.getPreferredSize());
     }
     
     public  static void callNewWindow(final String title, final JFrame f, final int behaviour, final Dimension d){

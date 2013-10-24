@@ -5,15 +5,16 @@
 package gubas.forms;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 import javax.swing.JMenuBar;
 
 /**
  *
  * @author Przemek
  */
-public class MenuContainingForm extends BaseForm {
+public abstract class MenuContainingForm extends BaseForm implements ActionListener {
     
-    JMenuBar myMenuBar;
+    protected JMenuBar myMenuBar;
 
     public JMenuBar getMyMenuBar() {
         return myMenuBar;
