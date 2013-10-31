@@ -19,6 +19,10 @@ public class FormsCaller {
     
     
     
+    public static void callNewMainWindow(final String title, JFrame window){
+        callNewWindow(title,window,  JFrame.EXIT_ON_CLOSE, window.getPreferredSize());
+    }
+    
     public  static void callNewWindow(final String title, JFrame window){
          callNewWindow(title,window,  JFrame.DISPOSE_ON_CLOSE, window.getPreferredSize());
     }
