@@ -90,10 +90,14 @@ public class DialogForm extends BaseForm implements MouseListener{
     }
     
     protected void addMessage(String message){
-        if(message!=null){
-            this.add(new JLabel(message), BorderLayout.NORTH);
+        if(this.message!=null){
+            this.message.setText(message);
+        } else {
+            this.message = new JLabel(message);
+            this.add(this.message, BorderLayout.NORTH);
         }
     }
+    
    protected final void createFormOf(Dialog type){
        switch (type){
            case OK:
